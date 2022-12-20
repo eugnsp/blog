@@ -151,17 +151,19 @@ The last line doesn't compile for the following reason: `std::is_invocable` type
 
 This is similar to hard/soft errors [SFINAE](https://github.com/eugnsp/library/blob/master/cpp/templates.md#sfinae). Consider the following two (simplified) implementations of `std::enable_if`:
 ```cpp
-template<bool B>
-struct enable_if_1 {};
-
-template<>
-struct enable_if_1<true> {
-    using type = void;
+template<bool B, typename T = void>
+struct enable_if_1 {
+    // no type member
 };
 
-template<bool B>
+template<typename T>
+struct enable_if_1<true, T> {
+    using type = T;
+};
+
+template<bool B, typename T>
 struct enable_if_2 {
-    using type = typename enable_if_1<B>::type;
+    using type = typename enable_if_1<B, T>::type;
 };
 ```
 
