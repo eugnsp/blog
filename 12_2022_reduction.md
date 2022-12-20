@@ -99,7 +99,7 @@ int apply(Fnl fnl, Fn fn) {
 }
 ```
 
-How could we detect a unary function? The standard library has a special type trait to do it: `std::is_invocable_v<Fn, double>` returns `true` if `Fn` can be invoked on a single `double` argument.
+How could we detect a unary function? The standard library has a [type trait](https://en.cppreference.com/w/cpp/types/is_invocable) to do it: `std::is_invocable_v<Fn, double>` returns `true` if `Fn` can be invoked on a single `double` argument.
 
 Let's try it:
 ```cpp
@@ -167,7 +167,7 @@ struct enable_if_2 {
 };
 ```
 
-The first implementation is what you'll most likely see in a standard library source code. The second one looks similar: if `B` is `true`, it defines a member type `type`, if `B` is `false` a substitution error will be generated. However, if you try to use the second implementation, you'll get the following compilation error:
+The first implementation is what you'll [see](https://github.com/gcc-mirror/gcc/blob/releases/gcc-12/libstdc++-v3/include/std/type_traits#L2221-L2228) in a standard library source code. The second one looks similar: if `B` is `true`, it defines a member type `type`, if `B` is `false` a substitution error will be generated. However, if you try to use the second implementation, you'll get the following compilation error:
 ```none
 error: no type named 'type' in 'struct enable_if_1<false>'
 using type = typename enable_if_1<B>::type;
