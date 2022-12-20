@@ -4,7 +4,7 @@ On the solution of one functional problem
 Definitions
 -----------
 
-For the sake of this post let's assume the following narrow definitions: a _function_ is a map from scalars into scalars, a _functional_ is a map from functions into scalars. Here is a trivial example of a functional, which I'll use below for illustration purposes:
+For the sake of this post let's assume the following narrow definitions: a _function_ is a map from scalars into scalars, a _functional_ is a map from functions into scalars. Here are simple examples of functionals, which I'll use below for illustration purposes:
 ```cpp
 auto at = [](auto fn) {
     return fn(10);
