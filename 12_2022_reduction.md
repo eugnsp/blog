@@ -4,31 +4,19 @@ On the solution of one functional problem
 Definitions
 -----------
 
-For the sake of this post let's assume the following narrow definitions: a _function_ is a map from scalars into scalars, a _functional_ is a map from functions into scalars. Below are trivial examples of functions and functionals, which I'll use below for illustration purposes:
+For the sake of this post let's assume the following narrow definitions: a _function_ is a map from scalars into scalars, a _functional_ is a map from functions into scalars. Here is a trivial example of a functional, which I'll use below for illustration purposes:
 ```cpp
-// Function:
-double sq(double x) {
-    return x * x;
-}
-
-// Functionals:
-auto at = [](auto fn) {
-    return fn(10);
-};
-
 auto integrator = [](auto fn) {
     double sum = 0;
     const int n = 10;
     for (int i = 0; i < n; ++i)
-        sum += fn(i);
+        sum += fn(i + .5);
     return sum / n;
 };
 ```
 
-The first functional, `at`, returns the value of a function at the fixed point `10`. The second one, `integrator`, computes an approximation of an integral over a finite range `[0, 10]`,
-$$\int_0^{10} dx \ f(x) \approx \sum_{i = 0}^{9} f(i).$$
-
-An application of a these functionals to the function `sq` gives the following results: `at(sq) = 10`, `integrator(sq) == 385`.
+It computes an approximation of an integral over a finite range `[0, 10]` using the mid-point rule,
+$$\int_0^{10} dx \ f(x) \approx \sum_{i = 0}^{9} f(i + 0.5).$$
 
 Generalization
 --------------
