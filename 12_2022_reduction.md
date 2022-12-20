@@ -69,12 +69,12 @@ template<class Fnl, class Fn>
 double apply(Fnl fnl, Fn fn);
 ```
 
-For example: `apply(integrator, [](double x, double y, double z){ return x * y * z; })` should return an approximate value for a triple integral $$\int_0^{10} dx \ \int_0^{10} dy \ \int_0^{10} dz \ x y z.$$
+For example: `apply(integrator, [](double x, double y, double z) { return x * y * z; })` should return an approximate value for a triple integral $$\int_0^{10} dx \ \int_0^{10} dy \ \int_0^{10} dz \ x y z.$$
 
 Solution
 --------
 
-How could we implement such a generic function? From the examples given above, one possible solution that comes to mind is recursion: chomp one argument at a time using a lambda expression, apply a functional and recurse until a unary function is finally passed as an argument.
+From the examples given above, one possible solution that comes to mind is recursion: chomp one argument at a time using a lambda expression, apply a functional and recurse until a unary function is finally passed as an argument.
 
 With C++14 generic variadic lambdas, the recursion itself looks rather straightforward:
 ```cpp
