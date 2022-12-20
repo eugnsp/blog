@@ -6,6 +6,10 @@ Definitions
 
 For the sake of this post let's assume the following narrow definitions: a _function_ is a map from scalars into scalars, a _functional_ is a map from functions into scalars. Here is a trivial example of a functional, which I'll use below for illustration purposes:
 ```cpp
+auto at = [](auto fn) {
+    return fn(10);
+};
+
 auto integrator = [](auto fn) {
     double sum = 0;
     const int n = 10;
@@ -15,7 +19,7 @@ auto integrator = [](auto fn) {
 };
 ```
 
-It computes an approximation of an integral over a finite range `[0, 10]` using the mid-point rule,
+The first functional computes a function value at some fixed point. The second one computes an approximation of an integral over a finite range `[0, 10]` using the mid-point rule,
 $$\int_0^{10} dx \ f(x) \approx \sum_{i = 0}^{9} f(i + 0.5).$$
 
 Generalization
