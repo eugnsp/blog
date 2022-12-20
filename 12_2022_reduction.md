@@ -159,7 +159,7 @@ struct enable_if_2 {
 };
 ```
 
-The first implementation is what you'll [see](https://github.com/gcc-mirror/gcc/blob/releases/gcc-12/libstdc++-v3/include/std/type_traits#L2221-L2228) in a standard library source code. The second one looks similar: if `B` is `true`, it defines a member type `type`, if `B` is `false` a substitution error will be generated. However, if you try to use the second implementation, you'll get the following compilation error:
+The first implementation is what you'll [see](https://github.com/gcc-mirror/gcc/blob/releases/gcc-12/libstdc++-v3/include/std/type_traits#L2221-L2228) in a standard library source code. The second one looks deceptively similar: if `B` is `true`, it defines a member type `type`, if `B` is `false` a substitution error will be generated. However, if you try to use the second implementation in place of the first one, you'll get the following compilation (hard) error:
 ```none
 error: no type named 'type' in 'struct enable_if_1<false>'
 using type = typename enable_if_1<B>::type;
@@ -168,7 +168,7 @@ using type = typename enable_if_1<B>::type;
 
 SFINAE works only in what is called an [_immediate context_](https://stackoverflow.com/q/15260685): a substitution failure inside `enable_if_2` _is_ an error.
 
-To fix `lambda2`, we should encode invocability of `fn` into lambda's signature. A trivial way to do it is to put (unevaluated) `fn` call into the explicit return type specification:
+To fix `lambda2`, we should somehow encode invocability of `fn` into lambda's signature. A simple way to do it is to put (unevaluated) `fn` call into the explicit return type specification:
 ```cpp
 auto lambda2 = [](auto... xs) -> decltype(fn(xs...)) { return fn(xs...); };
 
